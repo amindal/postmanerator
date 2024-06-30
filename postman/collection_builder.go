@@ -203,4 +203,5 @@ type BuilderOptions struct {
 	IgnoredRequestHeaders  []string
 	IgnoredResponseHeaders []string
 	EnvironmentVariables   Environment
+	BaseUrl                string
 }

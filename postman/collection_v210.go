@@ -6,7 +6,14 @@ type collectionV210 struct {
 		Description string `json:"description"`
 		Schema      string `json:"schema"`
 	} `json:"info"`
-	Item []collectionV210Item `json:"item"`
+	Item     []collectionV210Item     `json:"item"`
+	Variable []collectionV210Variable `json:"variable"`
+}
+
+type collectionV210Variable struct {
+	Key   string `json:"key"`
+	Type  string `json:"type"`
+	Value string `json:"value"`
 }
 
 type collectionV210Item struct {
@@ -26,6 +33,7 @@ type collectionV210Item struct {
 		Url struct {
 			Raw      string                       `json:"raw"`
 			Variable []collectionV210KeyValuePair `json:"variable"`
+			Query    []collectionV210KeyValuePair `json:"query"`
 		} `json:"url"`
 		Description string `json:"description"`
 	} `json:"request,omitempty"`

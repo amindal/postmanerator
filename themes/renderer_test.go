@@ -3,8 +3,8 @@ package themes_test
 import (
 	"bytes"
 
-	"github.com/aubm/postmanerator/postman"
-	. "github.com/aubm/postmanerator/themes"
+	"github.com/amindal/postmanerator/postman"
+	. "github.com/amindal/postmanerator/themes"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )

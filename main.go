@@ -4,18 +4,18 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/aubm/postmanerator/commands"
-	"github.com/aubm/postmanerator/configuration"
-	"github.com/aubm/postmanerator/postman"
-	"github.com/aubm/postmanerator/themes"
-	"github.com/aubm/postmanerator/utils"
+	"github.com/amindal/postmanerator/commands"
+	"github.com/amindal/postmanerator/configuration"
+	"github.com/amindal/postmanerator/postman"
+	"github.com/amindal/postmanerator/themes"
+	"github.com/amindal/postmanerator/utils"
 	"github.com/facebookgo/inject"
 	"github.com/fatih/color"
 )
 
 var (
 	config               = configuration.Config
-	errUnknownCmd        = fmt.Errorf("Command not found, please see the documentation at https://github.com/aubm/postmanerator")
+	errUnknownCmd        = fmt.Errorf("Command not found, please see the documentation at https://github.com/amindal/postmanerator")
 	themeManager         = &themes.Manager{}
 	themeRenderer        = &themes.Renderer{}
 	gitAgent             = &utils.GitAgent{}

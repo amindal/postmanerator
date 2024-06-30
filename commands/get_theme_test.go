@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"errors"
 
-	. "github.com/aubm/postmanerator/commands"
-	"github.com/aubm/postmanerator/configuration"
-	. "github.com/aubm/postmanerator/themes/mocks"
+	. "github.com/amindal/postmanerator/commands"
+	"github.com/amindal/postmanerator/configuration"
+	. "github.com/amindal/postmanerator/themes/mocks"
 	"github.com/fatih/color"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
