@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/aubm/postmanerator/postman"
+	"github.com/amindal/postmanerator/postman"
 )
 
 func curlSnippet(request postman.Request) string {
@@ -42,7 +42,16 @@ func curlSnippet(request postman.Request) string {
 			}
 		}
 	}
-
-	curlSnippet += fmt.Sprintf(` "%v"`, request.URL)
+	if len(request.QueryParams) > 0 {
+		curlSnippet += fmt.Sprintf(` "%v?%v"`, request.URL, func() string {
+			res := []string{}
+			for _, q := range request.QueryParams {
+				res = append(res, q.Key+"=")
+			}
+			return strings.Join(res, "&")
+		}())
+	} else {
+		curlSnippet += fmt.Sprintf(` "%v"`, request.URL)
+	}
 	return curlSnippet
 }

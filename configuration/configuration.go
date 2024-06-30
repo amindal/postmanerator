@@ -36,13 +36,13 @@ const (
 var (
 	InitErr error
 	Config  = &Configuration{
-		Out:                                        os.Stdout,
-		ThemesRepository:                           defaultThemesRepository,
+		Out:              os.Stdout,
+		ThemesRepository: defaultThemesRepository,
 		SleepTimeBetweenEachThemeDownloadInSeconds: 3,
 	}
 	errThemesNoDirectory = errors.New(`An error occurred while trying to determine which directory to use for themes.
 As a workaround, you can define the POSTMANERATOR_PATH environment variable.
-Please consult the documentation here https://github.com/aubm/postmanerator and feel free to submit an issue.`)
+Please consult the documentation here https://github.com/amindal/postmanerator and feel free to submit an issue.`)
 )
 
 func Init() {

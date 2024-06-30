@@ -30,7 +30,12 @@ func (p *CollectionV210Parser) buildCollection(src collectionV210, options Build
 		Folders:     make([]Folder, 0),
 		Structures:  make([]StructureDefinition, 0),
 	}
-
+	for _, v := range src.Variable {
+		if v.Key == "base_url" {
+			options.BaseUrl = v.Value
+			break
+		}
+	}
 	rootItem := Folder{}
 	if err := p.computeItem(&rootItem, src.Item, options); err != nil {
 		return collection, fmt.Errorf("failed to build request: %v", err)
@@ -60,7 +65,7 @@ func (p *CollectionV210Parser) computeItem(parentFolder *Folder, items []collect
 				Name:          item.Name,
 				Description:   item.Request.Description,
 				Method:        item.Request.Method,
-				URL:           item.Request.Url.Raw,
+				URL:           strings.ReplaceAll(item.Request.Url.Raw, "{{base_url}}", options.BaseUrl),
 				PayloadType:   item.Request.Body.Mode,
 				PayloadRaw:    item.Request.Body.Raw,
 				Tests:         p.parseRequestTests(item),
@@ -68,6 +73,7 @@ func (p *CollectionV210Parser) computeItem(parentFolder *Folder, items []collect
 				PayloadParams: p.parseRequestPayloadParams(item),
 				Headers:       p.parseRequestHeaders(item, options),
 				Responses:     p.parseRequestResponses(item, options),
+				QueryParams:   p.parseRequestQueryParams(item),
 			}
 			parentFolder.Requests = append(parentFolder.Requests, request)
 		}
@@ -89,6 +95,21 @@ func (p *CollectionV210Parser) parseRequestPathVariables(item collectionV210Item
 	pathVariables := make([]KeyValuePair, 0)
 
 	for _, variable := range item.Request.Url.Variable {
+		pathVariables = append(pathVariables, KeyValuePair{
+			Name:        variable.Key,
+			Key:         variable.Key,
+			Value:       variable.Value,
+			Description: variable.Description,
+		})
+	}
+
+	return pathVariables
+}
+
+func (p *CollectionV210Parser) parseRequestQueryParams(item collectionV210Item) []KeyValuePair {
+	pathVariables := make([]KeyValuePair, 0)
+
+	for _, variable := range item.Request.Url.Query {
 		pathVariables = append(pathVariables, KeyValuePair{
 			Name:        variable.Key,
 			Key:         variable.Key,

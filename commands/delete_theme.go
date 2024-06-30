@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/aubm/postmanerator/configuration"
+	"github.com/amindal/postmanerator/configuration"
 	"github.com/fatih/color"
 )
 

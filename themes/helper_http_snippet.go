@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/aubm/postmanerator/postman"
+	"github.com/amindal/postmanerator/postman"
 )
 
 func helperHttpSnippet(request postman.Request) (httpSnippet string) {
@@ -17,7 +17,17 @@ func helperHttpSnippet(request postman.Request) (httpSnippet string) {
 	}
 
 	httpSnippet += fmt.Sprintf(`%v %v HTTP/1.1
-Host: %v`, request.Method, parsedURL.RequestURI(), parsedURL.Host)
+Host: %v`, request.Method, parsedURL.RequestURI()+func() string {
+		if len(request.QueryParams) > 0 {
+			res := []string{}
+			for _, q := range request.QueryParams {
+				res = append(res, q.Key+"=")
+			}
+			return "?" + strings.Join(res, "&")
+		} else {
+			return ""
+		}
+	}(), parsedURL.Host)
 
 	for _, header := range request.Headers {
 		httpSnippet += fmt.Sprintf("\n%v: %v", header.Name, header.Value)
