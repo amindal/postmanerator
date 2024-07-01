@@ -1,6 +1,6 @@
 module github.com/amindal/postmanerator
 
-go 1.22.3
+go 1.22.2
 
 require (
 	github.com/facebookgo/inject v0.0.0-20180706035515-f23751cae28b
